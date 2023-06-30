@@ -72,3 +72,14 @@ function App() {
   );
 }
 ```
+
+3. In the components that need access to the context, use the `useContext` hook to get the value.
+
+```js
+import { useContext } from "react";
+
+function Results() {
+  const { posts } = useContext(PostContext);
+  return <p>🚀 {posts.length} atomic posts found</p>;
+}
+```
