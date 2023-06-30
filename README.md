@@ -83,3 +83,5 @@ function Results() {
   return <p>🚀 {posts.length} atomic posts found</p>;
 }
 ```
+
+- Important!. In here context can be used in any children components, but not in the App component itself. Because App component is not a child of the Provider component. So If you try to access it you get `undefined` values.
