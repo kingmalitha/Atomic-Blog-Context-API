@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { faker } from "@faker-js/faker";
 
 function createRandomPost() {
@@ -7,6 +7,13 @@ function createRandomPost() {
     body: faker.hacker.phrase(),
   };
 }
+
+//  01.) CREATE A NEW CONTEXT
+const PostContext = createContext();
+
+// 02.) PROVIDE VALUES TO CHILD COMPONENTS
+
+// 03.) CONSUME VALUES FROM PARENT COMPONENTS
 
 function App() {
   const [posts, setPosts] = useState(() =>
@@ -42,24 +49,35 @@ function App() {
   );
 
   return (
-    <section>
-      <button
-        onClick={() => setIsFakeDark((isFakeDark) => !isFakeDark)}
-        className="btn-fake-dark-mode"
-      >
-        {isFakeDark ? "☀️" : "🌙"}
-      </button>
+    // 02.) PROVIDE VALUES TO CHILD COMPONENTS
+    <PostContext.Provider
+      value={{
+        posts: searchedPosts,
+        onAddPost: handleAddPost,
+        onClearPosts: handleClearPosts,
+        searchQuery,
+        setSearchQuery,
+      }}
+    >
+      <section>
+        <button
+          onClick={() => setIsFakeDark((isFakeDark) => !isFakeDark)}
+          className='btn-fake-dark-mode'
+        >
+          {isFakeDark ? "☀️" : "🌙"}
+        </button>
 
-      <Header
-        posts={searchedPosts}
-        onClearPosts={handleClearPosts}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-      />
-      <Main posts={searchedPosts} onAddPost={handleAddPost} />
-      <Archive onAddPost={handleAddPost} />
-      <Footer />
-    </section>
+        <Header
+          posts={searchedPosts}
+          onClearPosts={handleClearPosts}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+        <Main posts={searchedPosts} onAddPost={handleAddPost} />
+        <Archive onAddPost={handleAddPost} />
+        <Footer />
+      </section>
+    </PostContext.Provider>
   );
 }
 
@@ -86,7 +104,7 @@ function SearchPosts({ searchQuery, setSearchQuery }) {
     <input
       value={searchQuery}
       onChange={(e) => setSearchQuery(e.target.value)}
-      placeholder="Search posts..."
+      placeholder='Search posts...'
     />
   );
 }
@@ -129,12 +147,12 @@ function FormAddPost({ onAddPost }) {
       <input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Post title"
+        placeholder='Post title'
       />
       <textarea
         value={body}
         onChange={(e) => setBody(e.target.value)}
-        placeholder="Post body"
+        placeholder='Post body'
       />
       <button>Add post</button>
     </form>

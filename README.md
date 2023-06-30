@@ -35,3 +35,40 @@ Special thanks to [Jonas Schmedtmann- Ultimate React Course](https://www.udemy.c
 Here is a diagram of how the Context API works:
 
 ![How Context API Works](/mark_img/context_api_works.png)
+
+## HOW TO USE CONTEXT API?
+
+1. Create a context
+
+```js
+import { createContext } from "react";
+
+const PostContext = createContext();
+```
+
+2. Wrap the components that need access to the context in the `Provider` component and pass the value to the `value` prop.
+
+```js
+import { PostContext } from "./contexts/PostContext";
+
+function App() {
+  return (
+    <PostContext.Provider
+      value={{
+        posts: searchedPosts,
+        onAddPost: handleAddPost,
+        onClearPosts: handleClearPosts,
+        searchQuery,
+        setSearchQuery,
+      }}
+    >
+      <div className='App'>
+        <Navbar />
+        <div className='content'>
+          <Posts />
+        </div>
+      </div>
+    </PostContext.Provider>
+  );
+}
+```
