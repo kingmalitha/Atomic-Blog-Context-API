@@ -85,3 +85,19 @@ function Results() {
 ```
 
 - Important!. In here context can be used in any children components, but not in the App component itself. Because App component is not a child of the Provider component. So If you try to access it you get `undefined` values.
+
+## STATE MANAGEMENT
+
+### TYPES OF STATE
+
+![TYPES OF STATE](/mark_img/types_of_state.png)
+
+### STATE PLACEMENT OPTIONS
+
+![STATE PLACEMENT OPTIONS](/mark_img/state_placement_options.png)
+
+### STATE MANAGEMENT TOOL OPTIONS
+
+![STATE MANAGEMENT TOOL OPTIONS](/mark_img/state_management_tool_options.png)
+
+![label](image.png)
